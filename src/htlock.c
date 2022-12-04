@@ -48,7 +48,7 @@ int create_htlock(htlock_t* htl)
 //    }
     assert(htl != NULL);
 
-    htl->global = memalign(CACHE_LINE_SIZE, sizeof(htlock_global_t));
+    htl->global = static_cast<htlock_global_t *>(memalign(CACHE_LINE_SIZE, sizeof(htlock_global_t)));
     if (htl == NULL) 
     {
         fprintf(stderr,"Error @ memalign : create htlock\n");
@@ -139,7 +139,7 @@ is_free_hticket(htlock_t* htl)
     static htlock_t* 
 create_htlock_no_alloc(htlock_t* htl, htlock_local_t* locals[NUMBER_OF_SOCKETS], size_t offset)
 {
-    htl->global = memalign(CACHE_LINE_SIZE, sizeof(htlock_global_t));
+    htl->global = static_cast<htlock_global_t *>(memalign(CACHE_LINE_SIZE, sizeof(htlock_global_t)));
     if (htl == NULL) 
     {
         fprintf(stderr,"Error @ memalign : create htlock\n");
@@ -169,7 +169,7 @@ create_htlock_no_alloc(htlock_t* htl, htlock_local_t* locals[NUMBER_OF_SOCKETS],
 init_htlocks(uint32_t num_locks)
 {
     htlock_t* htls;
-    htls = memalign(CACHE_LINE_SIZE, num_locks * sizeof(htlock_t));
+    htls = static_cast<htlock_t *>(memalign(CACHE_LINE_SIZE, num_locks * sizeof(htlock_t)));
     if (htls == NULL) 
     {
         fprintf(stderr, "Error @ memalign : init_htlocks\n");
