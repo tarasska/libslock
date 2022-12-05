@@ -113,7 +113,10 @@ ttas_lock_t* init_ttas_array_global(uint32_t num_locks) {
 
 uint32_t* init_ttas_array_local(uint32_t thread_num, uint32_t size){
     //assign the thread to the correct core
+#if defined(OLD_THREAD_PIN)
     set_cpu(thread_num);
+#endif
+
     ttas_seeds = seed_rand();
 
     uint32_t* limits;
@@ -142,7 +145,10 @@ int init_ttas_global(ttas_lock_t* the_lock) {
 
 int init_ttas_local(uint32_t thread_num , uint32_t* limit){
     //assign the thread to the correct core
+#if defined(OLD_THREAD_PIN)
     set_cpu(thread_num);
+#endif
+
     *limit=1;
     ttas_seeds = seed_rand();
     MEM_BARRIER;

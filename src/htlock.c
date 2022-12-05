@@ -99,7 +99,9 @@ init_htlock(htlock_t* htl)
     void
 init_thread_htlocks(uint32_t phys_core)
 {
+#if defined(OLD_THREAD_PIN)
     set_cpu(phys_core);
+#endif
 
 #if defined(XEON)
     uint32_t real_core_num = 0;

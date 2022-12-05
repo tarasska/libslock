@@ -86,8 +86,9 @@ clh_global_params* init_clh_array_global(uint32_t num_locks) {
 }
 
 clh_local_params* init_clh_array_local(uint32_t thread_num, uint32_t num_locks) {
+#if defined(OLD_THREAD_PIN)
     set_cpu(thread_num);
-
+#endif
     //init its qnodes
     uint32_t i;
     clh_local_params* local_params = (clh_local_params*)malloc(num_locks * sizeof(clh_local_params));
@@ -123,8 +124,9 @@ int init_clh_global(clh_global_params* the_params) {
 }
 
 int init_clh_local(uint32_t thread_num, clh_local_params* local_params) {
+#if defined(OLD_THREAD_PIN)
     set_cpu(thread_num);
-
+#endif
     //init its qnodes
     local_params->my_qnode = (clh_qnode*) malloc(sizeof(clh_qnode));
     local_params->my_qnode->locked=0;

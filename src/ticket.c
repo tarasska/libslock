@@ -215,7 +215,9 @@ int is_free_ticket(ticketlock_t* t)
 
 void init_thread_ticketlocks(uint32_t thread_num) 
 {
-  set_cpu(thread_num);
+#if defined(OLD_THREAD_PIN)
+    set_cpu(thread_num);
+#endif
 }
 
 ticketlock_t* 

@@ -144,7 +144,10 @@ rw_ttas* init_rw_ttas_array_global(uint32_t num_locks) {
 }
 
 uint32_t* init_rw_ttas_array_local(uint32_t thread_num, uint32_t size){
+#if defined(OLD_THREAD_PIN)
     set_cpu(thread_num);
+#endif
+
     rw_seeds = seed_rand();
     uint32_t* limits;
     limits = (uint32_t*)malloc(size * sizeof(uint32_t));
@@ -171,7 +174,10 @@ int init_rw_ttas_global(rw_ttas* the_lock) {
 }
 
 int init_rw_ttas_local(uint32_t thread_num, uint32_t * limit){
+#if defined(OLD_THREAD_PIN)
     set_cpu(thread_num);
+#endif
+
     *limit = 1;
     rw_seeds = seed_rand();
     MEM_BARRIER;

@@ -119,7 +119,9 @@ mcs_global_params* init_mcs_array_global(uint32_t num_locks) {
 
 
 mcs_qnode** init_mcs_array_local(uint32_t thread_num, uint32_t num_locks) {
+#if defined(OLD_THREAD_PIN)
     set_cpu(thread_num);
+#endif
 
     //init its qnodes
     uint32_t i;
@@ -157,7 +159,9 @@ int init_mcs_global(mcs_global_params* the_lock) {
 
 
 int init_mcs_local(uint32_t thread_num, mcs_qnode** the_qnode) {
+#if defined(OLD_THREAD_PIN)
     set_cpu(thread_num);
+#endif
 
     (*the_qnode)=(mcs_qnode*)malloc(sizeof(mcs_qnode));
 

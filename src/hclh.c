@@ -159,7 +159,9 @@ hclh_global_params* init_hclh_array_global(uint32_t num_locks) {
 
 hclh_local_params* init_hclh_array_local(uint32_t phys_core, uint32_t num_locks, hclh_global_params* the_params) {
     //assign the thread to the correct core
+#if defined(OLD_THREAD_PIN)
     set_cpu(phys_core);
+#endif
     hclh_local_params* local_params;
     local_params = (hclh_local_params*)malloc(num_locks * sizeof(hclh_local_params));
     uint32_t i;
@@ -232,7 +234,9 @@ int init_hclh_global(hclh_global_params* the_params) {
 
 int init_hclh_local(uint32_t phys_core, hclh_global_params* the_params, hclh_local_params* local_params) {
     //assign the thread to the correct core
+#if defined(OLD_THREAD_PIN)
     set_cpu(phys_core);
+#endif
 #ifdef XEON
     MEM_BARRIER;
     uint32_t real_core_num = 0;
