@@ -10,11 +10,12 @@ file(GLOB LIBSLOCK_SRC_GLOB_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c")
 set_source_files_properties(${LIBSLOCK_SRC_GLOB_FILES} PROPERTIES LANGUAGE CXX)
 
 if (CMAKE_BUILD_TYPE EQUAL "DEBUG")
-    set(DEBUG_FLAGS "-Wall -ggdb -DDEBUG")
-    set(COMPILE_FLAGS "-O0 -DADD_PADDING -fno-inline")
+    set(DEBUG_FLAGS "-ggdb -DDEBUG")
+    set(COMPILE_FLAGS "-fno-inline")
+    set(CMAKE_CXX_FLAGS_DEBUG "-O0")
 else()
     set(DEBUG_FLAGS "-Wall")
-    set(COMPILE_FLAGS "-O2 -DADD_PADDING")
+    set(CMAKE_CXX_FLAGS_RELEASE "-O2")
 endif()
 
 include(ProcessorCount)
@@ -25,8 +26,8 @@ else()
     add_compile_definitions(CORE_NUM=${8})
 endif()
 
-add_compile_definitions(DEFAULT LINUXOS)
-set(CMAKE_CXX_FLAGS "${DEBUG_FLAGS} ${COMPILE_FLAGS}")
+add_compile_definitions(ADD_PADDING DEFAULT LINUXOS USE_CLH_LOCKS)
+set(CMAKE_CXX_FLAGS "-Wall ${DEBUG_FLAGS} ${COMPILE_FLAGS}")
 
 set(${LIBRARY_TARGET_NAME}_HDR
         include/alock.h
