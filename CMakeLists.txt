@@ -26,7 +26,7 @@ else()
     add_compile_definitions(CORE_NUM=${8})
 endif()
 
-add_compile_definitions(ADD_PADDING DEFAULT LINUXOS USE_CLH_LOCKS)
+add_compile_definitions(ADD_PADDING LINUXOS)
 set(CMAKE_CXX_FLAGS "-Wall ${DEBUG_FLAGS} ${COMPILE_FLAGS}")
 
 set(${LIBRARY_TARGET_NAME}_HDR
